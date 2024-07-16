@@ -1,0 +1,49 @@
+
+
+USUARIO (usuario en busca de turno)
+BARBERO (trabajador de la barberia)
+BARBERIA (local comercial)
+
+ADMIN BARBERO (dueño de la barberia)
+SUPER ADMIN (programadores)
+
+TURNO (solicitud de turno)
+NOTIFICACION (aviso por mail o telefono de proximo turno)
+VALORACION (valoracion de servicio tanto para los barberos como para la barberia)
+
+FUTURAS FUNCIONALIDADES
+Contratar barberos.
+Venta de productos y cursos.
+
+RESOLVER
+En caso de falta del barbero: que sucede con el turno?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

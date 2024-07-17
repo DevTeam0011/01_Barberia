@@ -14,9 +14,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
@@ -45,6 +48,13 @@ public class administradorEntidad {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private usuarioEntidad usuarioAdmin;
+
+    //------------------------METODOS--------------------------------------
+
+
     @PrePersist // Before creating a user
     protected void onCreate() {
         this.createdAt = new Date(); // Default current_timestamp
@@ -54,5 +64,7 @@ public class administradorEntidad {
     protected void onUpdate() {
         this.updatedAt = new Date(); // default current_timestamp on update current_timestamp
     }
+
+
 
 }

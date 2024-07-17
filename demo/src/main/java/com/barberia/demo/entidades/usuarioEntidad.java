@@ -2,6 +2,7 @@ package com.barberia.demo.entidades;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -14,9 +15,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
@@ -50,6 +55,18 @@ public class usuarioEntidad {
     @Column(nullable = false)
     private Boolean estado;
 
+    @OneToOne(mappedBy = "usuarioAdmin", fetch = FetchType.LAZY)
+    private administradorEntidad admin;
+
+    @OneToMany(mappedBy = "usuarioTurno", fetch = FetchType.LAZY)
+    private List<turnoEntidad> turnos;
+
+    @OneToMany(mappedBy = "usuarioServicio", fetch = FetchType.LAZY)
+    private List<servicioEntidad> servicios;
+
+    @OneToOne(mappedBy = "usuarioJefe", fetch = FetchType.LAZY)
+    private jefeEntidad jefe;
+
     // Datos de creacion y ultima modificacion de usuario.
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -57,6 +74,9 @@ public class usuarioEntidad {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
+
+    //------------------------METODOS--------------------------------------
+
 
     @PrePersist // Before creating a user
     protected void onCreate() {

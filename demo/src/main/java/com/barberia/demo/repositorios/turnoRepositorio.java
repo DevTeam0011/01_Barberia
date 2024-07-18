@@ -8,6 +8,6 @@ import com.barberia.demo.entidades.turnoEntidad;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface turnoRepositorio extends JpaRepository<turnoEntidad,UUID>{
+public interface turnoRepositorio extends JpaRepository<turnoEntidad, UUID> {
     
 }

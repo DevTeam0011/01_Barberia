@@ -8,6 +8,6 @@ import com.barberia.demo.entidades.valoracionEntidad;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface valoracionRepositorio extends JpaRepository<valoracionEntidad,UUID> {
+public interface valoracionRepositorio extends JpaRepository<valoracionEntidad, UUID> {
     
 }

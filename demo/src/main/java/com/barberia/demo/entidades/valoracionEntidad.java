@@ -1,11 +1,8 @@
 package com.barberia.demo.entidades;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
@@ -36,6 +33,7 @@ public class valoracionEntidad {
 
     @Column(nullable = false)
     private String comentario;
+
     //Estado de valoracion.
     @Column(nullable = false)
     private Boolean estado;
@@ -47,9 +45,6 @@ public class valoracionEntidad {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "turno_id")
     private turnoEntidad turnoValoracion;
-
-
-
 
     // Datos de creacion y ultima modificacion.
     @Column(updatable = false)
@@ -69,5 +64,4 @@ public class valoracionEntidad {
         this.updatedAt = new Date(); // default current_timestamp on update current_timestamp
     }
     
-
 }

@@ -1,13 +1,10 @@
 package com.barberia.demo.entidades;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.UUID;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
@@ -72,10 +69,6 @@ public class turnoEntidad {
     private Date updatedAt;
 
     
-
-
-
-
 
     @PrePersist // Before creating a user
     protected void onCreate() {

@@ -43,7 +43,9 @@ public class barberiaEntidad {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "jefe_id")
     private jefeEntidad jefe;
-
+ 
+    @OneToOne
+    private ImagenEntidad foto;
 
 
 

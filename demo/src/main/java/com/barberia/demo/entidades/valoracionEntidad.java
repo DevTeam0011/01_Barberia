@@ -48,9 +48,7 @@ public class valoracionEntidad {
     @JoinColumn(name = "turno_id")
     private turnoEntidad turnoValoracion;
 
-
-
-
+    
     // Datos de creacion y ultima modificacion.
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")

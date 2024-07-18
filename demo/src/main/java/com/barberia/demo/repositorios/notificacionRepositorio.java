@@ -8,6 +8,6 @@ import com.barberia.demo.entidades.notificacionEntidad;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface notificacionRepositorio extends JpaRepository<UUID , notificacionEntidad>{
+public interface notificacionRepositorio extends JpaRepository<notificacionEntidad, UUID>{
     
 }

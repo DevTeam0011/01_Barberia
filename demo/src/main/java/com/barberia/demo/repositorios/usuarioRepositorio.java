@@ -8,6 +8,6 @@ import com.barberia.demo.entidades.usuarioEntidad;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface usuarioRepositorio extends JpaRepository< UUID, usuarioEntidad> {
+public interface usuarioRepositorio extends JpaRepository<usuarioEntidad,UUID> {
     
 }

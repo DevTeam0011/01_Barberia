@@ -6,6 +6,6 @@ import com.barberia.demo.entidades.administradorEntidad;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface administradorRepositorio extends JpaRepository<UUID, administradorEntidad> {
+public interface administradorRepositorio extends JpaRepository<administradorEntidad,UUID> {
     
 }

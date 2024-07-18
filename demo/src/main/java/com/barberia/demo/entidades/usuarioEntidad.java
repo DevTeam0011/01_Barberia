@@ -67,6 +67,9 @@ public class usuarioEntidad {
     @OneToOne(mappedBy = "usuarioJefe", fetch = FetchType.LAZY)
     private jefeEntidad jefe;
 
+    @OneToOne
+    private ImagenEntidad foto;
+
     // Datos de creacion y ultima modificacion de usuario.
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")

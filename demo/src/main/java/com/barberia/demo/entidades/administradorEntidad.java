@@ -1,11 +1,8 @@
 package com.barberia.demo.entidades;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.barberia.demo.enums.Rol;
@@ -64,7 +61,5 @@ public class administradorEntidad {
     protected void onUpdate() {
         this.updatedAt = new Date(); // default current_timestamp on update current_timestamp
     }
-
-
 
 }

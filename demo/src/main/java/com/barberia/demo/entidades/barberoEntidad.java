@@ -1,20 +1,13 @@
 package com.barberia.demo.entidades;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.barberia.demo.enums.Rol;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -37,18 +30,6 @@ public class barberoEntidad {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    // ROL
-    @Enumerated(EnumType.STRING)
-    private Rol rol;
-
-    @Column(nullable = false)
-    private String nombre;
-
-    @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
-    private String contrasena;
     
     @Column(nullable = false)
     private Boolean estado;
@@ -56,6 +37,10 @@ public class barberoEntidad {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "jefe_id")
     private jefeEntidad jefeBarbero;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private usuarioEntidad usuarioBarbero;
 
     @OneToMany(mappedBy = "barberoServicio", fetch = FetchType.LAZY)
     private List<servicioEntidad> servicios;
@@ -65,8 +50,6 @@ public class barberoEntidad {
 
     @OneToOne(mappedBy = "barberoValoracion", fetch = FetchType.LAZY)
     private valoracionEntidad valoracion;
-
-
 
     // Datos de creacion y ultima modificacion.
     @Column(updatable = false)

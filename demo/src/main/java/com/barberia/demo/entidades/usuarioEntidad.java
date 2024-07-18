@@ -1,12 +1,9 @@
 package com.barberia.demo.entidades;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.barberia.demo.enums.Rol;
@@ -19,7 +16,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
@@ -51,12 +47,16 @@ public class usuarioEntidad {
 
     @Column(nullable = false)
     private String telefono;
+
     // Estado de usuario.
     @Column(nullable = false)
     private Boolean estado;
 
     @OneToOne(mappedBy = "usuarioAdmin", fetch = FetchType.LAZY)
     private administradorEntidad admin;
+
+    @OneToOne(mappedBy = "usuarioBarbero", fetch = FetchType.LAZY)
+    private barberoEntidad barbero;
 
     @OneToMany(mappedBy = "usuarioTurno", fetch = FetchType.LAZY)
     private List<turnoEntidad> turnos;
@@ -79,8 +79,6 @@ public class usuarioEntidad {
     private Date updatedAt;
 
     //------------------------METODOS--------------------------------------
-
-
     @PrePersist // Before creating a user
     protected void onCreate() {
         this.createdAt = new Date(); // Default current_timestamp

@@ -28,20 +28,17 @@ public class servicioEntidad {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
     @Column(nullable = false)
     private String nombre;
-
     @Column(nullable = false)
     private Double precio;
-
     @Column(nullable = false)
     private String duracion;
-    
     // Estado de servicio.
     @Column(nullable = false)
     private Boolean estado;
 
+    // Relaciones
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private usuarioEntidad usuarioServicio;
@@ -57,24 +54,21 @@ public class servicioEntidad {
     @JoinColumn(name = "turno_id")
     private turnoEntidad turnoServicio;
 
-
-
     // Datos de creacion y ultima modificacion.
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
 
-    @PrePersist // Before creating a user
-    protected void onCreate() {
-        this.createdAt = new Date(); // Default current_timestamp
-    }
+    //------------------------METODOS--------------------------------------
 
-    @PreUpdate // before update
-    protected void onUpdate() {
-        this.updatedAt = new Date(); // default current_timestamp on update current_timestamp
+    @PrePersist // Antes de crear
+    protected void creacion() {
+        this.createdAt = new Date(); // Se asignará la fecha actual
     }
-
+    @PreUpdate // Antes de actualizar
+    protected void actualizacion() {
+        this.updatedAt = new Date(); // Se asignará la fecha actual
+    }
 }

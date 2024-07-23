@@ -12,5 +12,6 @@ public class AdministadorDTO {
     private Boolean estado;
     private Date createdAt;
     private Date updatedAt;
+
     private UsuarioDTO usuarioAdmin;
 }

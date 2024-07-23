@@ -32,26 +32,21 @@ public class usuarioEntidad {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    // ROL
     @Enumerated(EnumType.STRING)
     private Rol rol;
-
     @Column(nullable = false)
     private String nombre;
-
     @Column(nullable = false)
     private String email;
-
     @Column(nullable = false)
     private String contrasena;
-
     @Column(nullable = false)
     private String telefono;
-
     // Estado de usuario.
     @Column(nullable = false)
     private Boolean estado;
 
+    // Relaciones
     @OneToOne(mappedBy = "usuarioAdmin", fetch = FetchType.LAZY)
     private administradorEntidad admin;
 
@@ -79,14 +74,13 @@ public class usuarioEntidad {
     private Date updatedAt;
 
     //------------------------METODOS--------------------------------------
-    @PrePersist // Before creating a user
-    protected void onCreate() {
-        this.createdAt = new Date(); // Default current_timestamp
-    }
 
-    @PreUpdate // before update
-    protected void onUpdate() {
-        this.updatedAt = new Date(); // default current_timestamp on update current_timestamp
+    @PrePersist // Antes de crear
+    protected void creacion() {
+        this.createdAt = new Date(); // Se asignará la fecha actual
     }
-
+    @PreUpdate // Antes de actualizar
+    protected void actualizacion() {
+        this.updatedAt = new Date(); // Se asignará la fecha actual
+    }
 }

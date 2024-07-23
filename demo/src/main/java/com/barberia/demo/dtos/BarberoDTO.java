@@ -1,6 +1,6 @@
 package com.barberia.demo.dtos;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import lombok.Data;
@@ -13,7 +13,7 @@ public class BarberoDTO {
     private UsuarioDTO usuarioBarbero;
 
     private List<ServicioDTO> servicios;
-    private List<TurnoDTO> turno;
+    private List<TurnoDTO> turnos;
     private ValoracionDTO valoracion;
     
     private Date createdAt;

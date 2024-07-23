@@ -1,6 +1,6 @@
 package com.barberia.demo.dtos;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.UUID;
 
 import lombok.Data;

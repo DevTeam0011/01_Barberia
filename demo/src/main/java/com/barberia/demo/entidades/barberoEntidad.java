@@ -46,7 +46,7 @@ public class barberoEntidad {
     private List<servicioEntidad> servicios;
 
     @OneToMany(mappedBy = "turnoBarbero", fetch = FetchType.LAZY)
-    private List<turnoEntidad> turno;
+    private List<turnoEntidad> turnos;
 
     @OneToOne(mappedBy = "barberoValoracion", fetch = FetchType.LAZY)
     private valoracionEntidad valoracion;

@@ -1,6 +1,6 @@
 package com.barberia.demo.dtos;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import com.barberia.demo.enums.Rol;
@@ -14,7 +14,7 @@ public class JefeDTO {
 
     private UsuarioDTO usuarioJefe;
     private BarberiaDTO barberia;
-    private List<BarberiaDTO> barberos;
+    private List<BarberoDTO> barberos;
     private ServicioDTO servicioJefe;
 
     private Date createdAt;

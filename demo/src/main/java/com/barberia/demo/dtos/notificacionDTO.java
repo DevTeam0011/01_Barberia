@@ -13,5 +13,4 @@ public class NotificacionDTO {
 
     private Date createdAt;
     private Date updatedAt;
-    
 }

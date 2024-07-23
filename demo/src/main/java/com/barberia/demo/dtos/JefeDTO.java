@@ -19,5 +19,4 @@ public class JefeDTO {
 
     private Date createdAt;
     private Date updatedAt;
-
 }

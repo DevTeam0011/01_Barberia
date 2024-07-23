@@ -19,10 +19,4 @@ public class ServicioDTO {
 
     private Date createdAt;
     private Date updatedAt;
-
-
-
-
-
-    
 }

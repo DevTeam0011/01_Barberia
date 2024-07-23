@@ -21,6 +21,5 @@ public class TurnoDTO {
     private ValoracionDTO valoracion;
 
     private Date createdAt;
- private Date updatedAt;
-    
+    private Date updatedAt;
 }

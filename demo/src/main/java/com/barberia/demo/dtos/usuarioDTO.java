@@ -16,14 +16,13 @@ public class UsuarioDTO {
     private String telefono;
     private Boolean estado;
 
-     private AdministadorDTO admin;
-     private BarberoDTO barbero;
-     private List<TurnoDTO> turnos;
-     private List<ServicioDTO> servicios;
-     private JefeDTO jefe;
-     private ImagenDTO foto;
+    private AdministadorDTO admin;
+    private BarberoDTO barbero;
+    private List<TurnoDTO> turnos;
+    private List<ServicioDTO> servicios;
+    private JefeDTO jefe;
+    private ImagenDTO foto;
 
-     private Date createdAt;
-     private Date updatedAt;
-    
+    private Date createdAt;
+    private Date updatedAt;
 }

@@ -18,5 +18,4 @@ public class BarberoDTO {
     
     private Date createdAt;
     private Date updatedAt;
-
 }

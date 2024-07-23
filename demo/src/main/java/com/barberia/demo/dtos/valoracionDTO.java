@@ -14,9 +14,6 @@ public class ValoracionDTO {
     private BarberoDTO barberoValoracion;
     private TurnoDTO turnoValoracion;
 
-     private Date createdAt;
-     private Date updatedAt;
-
-
-    
+    private Date createdAt;
+    private Date updatedAt;
 }

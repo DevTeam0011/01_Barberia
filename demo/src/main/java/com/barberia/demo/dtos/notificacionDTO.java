@@ -2,21 +2,16 @@ package com.barberia.demo.dtos;
 
 import java.util.Date;
 import java.util.UUID;
-
-import com.barberia.demo.entidades.turnoEntidad;
-
 import lombok.Data;
 
 @Data
-public class notificacionDTO {
+public class NotificacionDTO {
     private UUID id;
-
     private Boolean estado;
 
-     private turnoEntidad turnoNotificacion;
+    private TurnoDTO turnoNotificacion;
 
-     private Date createdAt;
-
-     private Date updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
     
 }

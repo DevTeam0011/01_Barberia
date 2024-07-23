@@ -1,31 +1,20 @@
 package com.barberia.demo.dtos;
 
-
-
-
 import java.util.Date;
 import java.util.UUID;
-
-import com.barberia.demo.entidades.barberoEntidad;
-import com.barberia.demo.entidades.turnoEntidad;
-
 import lombok.Data;
+
 @Data
-public class valoracionDTO {
+public class ValoracionDTO {
     private UUID id;
-
     private Double puntaje;
-
     private String comentarios;
-
     private Boolean estado;
 
-     private barberoEntidad barberoValoracion;
-
-     private turnoEntidad turnoValoracion;
+    private BarberoDTO barberoValoracion;
+    private TurnoDTO turnoValoracion;
 
      private Date createdAt;
-
      private Date updatedAt;
 
 

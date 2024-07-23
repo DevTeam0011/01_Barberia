@@ -4,40 +4,23 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.UUID;
-
-import com.barberia.demo.entidades.barberoEntidad;
-import com.barberia.demo.entidades.liquidacionEntidad;
-import com.barberia.demo.entidades.notificacionEntidad;
-import com.barberia.demo.entidades.servicioEntidad;
-import com.barberia.demo.entidades.usuarioEntidad;
-import com.barberia.demo.entidades.valoracionEntidad;
-
 import lombok.Data;
 
 @Data
-public class turnoDTO {
+public class TurnoDTO {
     private UUID id;
-
     private LocalDate fechaTurno;
-
     private LocalTime horaTurno;
-
     private Boolean estado;
 
-    private usuarioEntidad usuarioTurno;
+    private UsuarioDTO usuarioTurno;
+    private BarberoDTO turnoBarbero;
+    private NotificacionDTO notificacion;
+    private LiquidacionDTO liquidacion;
+    private ServicioDTO servicioTurno;
+    private ValoracionDTO valoracion;
 
-    private barberoEntidad turnoBarbero;
-
-    private notificacionEntidad notificacion;
-
-    private liquidacionEntidad liquidacion;
-
-    private servicioEntidad servicioTurno;
-
-     private valoracionEntidad valoracion;
-
-     private Date createdAt;
-
-     private Date updatedAt;
+    private Date createdAt;
+ private Date updatedAt;
     
 }

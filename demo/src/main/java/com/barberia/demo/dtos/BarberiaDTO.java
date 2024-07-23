@@ -3,7 +3,6 @@ package com.barberia.demo.dtos;
 import java.sql.Date;
 import java.util.UUID;
 import com.barberia.demo.entidades.ImagenEntidad;
-import com.barberia.demo.entidades.jefeEntidad;
 import lombok.Data;
 
 @Data
@@ -14,7 +13,7 @@ private String ubicacion;
 private String horario;
 private Boolean estado;
 
-private jefeEntidad jefe;
+private JefeDTO jefe;
 private ImagenEntidad foto;
 
 private Date createdAt;

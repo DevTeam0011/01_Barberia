@@ -28,11 +28,13 @@ import com.barberia.demo.entidades.usuarioEntidad;
 import com.barberia.demo.entidades.valoracionEntidad;
 
 public class ConversorEntidad_Dto {
+    // ADMIN
     public static AdministadorDTO convertirAdmin(administradorEntidad aEntidad) {
         AdministadorDTO instancia = new AdministadorDTO();
         instancia.setId(aEntidad.getId());
         instancia.setRol(aEntidad.getRol());
         instancia.setEstado(aEntidad.getEstado());
+
         instancia.setCreatedAt(aEntidad.getCreatedAt());
         instancia.setUpdatedAt(aEntidad.getUpdatedAt());
 
@@ -44,16 +46,154 @@ public class ConversorEntidad_Dto {
         return instancia;
     }
 
+    // USUARIO
     public static UsuarioDTO convertirUsuario(usuarioEntidad uEntidad) {
-        return new UsuarioDTO();
-    } 
-    
+        UsuarioDTO instancia = new UsuarioDTO();
+        instancia.setId(uEntidad.getId());
+        instancia.setRol(uEntidad.getRol());
+        instancia.setNombre(uEntidad.getNombre());
+        instancia.setEmail(uEntidad.getEmail());
+        instancia.setContrasena(uEntidad.getContrasena());
+        instancia.setTelefono(uEntidad.getTelefono());
+        instancia.setEstado(uEntidad.getEstado());
+
+        instancia.setCreatedAt(uEntidad.getCreatedAt());
+        instancia.setUpdatedAt(uEntidad.getUpdatedAt());
+
+        if (uEntidad.getAdmin() != null) {
+            AdministadorDTO admin = convertirAdmin(uEntidad.getAdmin());
+            instancia.setAdmin(admin);
+        }
+        if (uEntidad.getBarbero() != null) {
+            BarberoDTO barbero = convertirBarbero(uEntidad.getBarbero());
+            instancia.setBarbero(barbero);
+        }
+        if (uEntidad.getTurnos() != null) {
+            List<TurnoDTO> turnos = uEntidad.getTurnos().stream().map(
+                (turno) -> convertirTurno(turno)
+            ).toList();
+            instancia.setTurnos(turnos);
+        }
+        if (uEntidad.getServicios() != null) {
+            List<ServicioDTO> servicios = uEntidad.getServicios().stream().map(
+                (servicio) -> convertirServicio(servicio)
+            ).toList();
+            instancia.setServicios(servicios);
+        }
+        if (uEntidad.getJefe() != null) {
+            JefeDTO jefe = convertirJefe(uEntidad.getJefe());
+            instancia.setJefe(jefe);
+        }
+        if(uEntidad.getFoto() != null) {
+            ImagenDTO foto = convertirImagen(uEntidad.getFoto());
+            instancia.setFoto(foto);
+        }
+
+        return instancia;
+    }
+
+    // JEFE
+    public static JefeDTO convertirJefe(jefeEntidad jEntidad) {
+        JefeDTO instancia = new JefeDTO();
+        instancia.setId(jEntidad.getId());
+        instancia.setRol(jEntidad.getRol());
+        instancia.setEstado(jEntidad.getEstado());
+
+        instancia.setCreatedAt(jEntidad.getCreatedAt());
+        instancia.setUpdatedAt(jEntidad.getUpdatedAt());
+
+        // RELACIONES
+        if (jEntidad.getUsuarioJefe() != null) {
+            UsuarioDTO usuario = convertirUsuario(jEntidad.getUsuarioJefe());
+            instancia.setUsuarioJefe(usuario);
+        }
+        if (jEntidad.getBarberia() != null) {
+            BarberiaDTO barberia = convertirBarberia(jEntidad.getBarberia());
+            instancia.setBarberia(barberia);
+        }
+        if (jEntidad.getBarberos() != null) {
+            List<BarberoDTO> barberos = jEntidad.getBarberos().stream().map(
+                (barbero) -> convertirBarbero(barbero)
+            ).toList();
+            instancia.setBarberos(barberos);
+        }
+        if (jEntidad.getServicioJefe() != null) {
+            ServicioDTO servicio = convertirServicio(jEntidad.getServicioJefe());
+            instancia.setServicioJefe(servicio);
+        }
+
+        return instancia;
+    }
+
+    // BARBERO
+    public static BarberoDTO convertirBarbero(barberoEntidad bEntidad) {
+        BarberoDTO instancia = new BarberoDTO();
+        instancia.setId(bEntidad.getId());
+        instancia.setEstado(bEntidad.getEstado());
+
+        instancia.setCreatedAt(bEntidad.getCreatedAt());
+        instancia.setUpdatedAt(bEntidad.getUpdatedAt());
+        
+        if (bEntidad.getJefeBarbero() != null) {
+            JefeDTO jefe = convertirJefe(bEntidad.getJefeBarbero());
+            instancia.setJefeBarbero(jefe);
+        }
+        if (bEntidad.getUsuarioBarbero() != null) {
+            UsuarioDTO usuario = convertirUsuario(bEntidad.getUsuarioBarbero());
+            instancia.setUsuarioBarbero(usuario);
+        }
+        if (bEntidad.getValoracion() != null) {
+            ValoracionDTO valoracion = convertirValoracion(bEntidad.getValoracion());
+            instancia.setValoracion(valoracion);
+        }
+        if (bEntidad.getServicios() != null) {
+            List<ServicioDTO> servicios = bEntidad.getServicios().stream().map(
+                (servicio) -> convertirServicio(servicio)
+            ).toList();
+            instancia.setServicios(servicios);
+        }
+        if (bEntidad.getTurnos() != null) {
+            List<TurnoDTO> turnos = bEntidad.getTurnos().stream().map(
+                (turno) -> convertirTurno(turno)
+            ).toList();
+            instancia.setTurnos(turnos);
+        }
+
+        return instancia;
+    }
+
+    // BARBERÍA
+    public static BarberiaDTO convertirBarberia(barberiaEntidad bEntidad) {
+        BarberiaDTO instancia = new BarberiaDTO();
+        instancia.setId(bEntidad.getId());
+        instancia.setNombre(bEntidad.getNombre());
+        instancia.setUbicacion(bEntidad.getUbicacion());
+        instancia.setHorario(bEntidad.getHorario());
+        instancia.setEstado(bEntidad.getEstado());
+        
+        instancia.setCreatedAt(bEntidad.getCreatedAt());
+        instancia.setUpdatedAt(bEntidad.getUpdatedAt());
+
+        if (bEntidad.getJefe() != null) {
+            JefeDTO jefe = convertirJefe(bEntidad.getJefe());
+            instancia.setJefe(jefe);
+        }
+        if (bEntidad.getFoto() != null) {
+            ImagenDTO imagen = convertirImagen(bEntidad.getFoto());
+            instancia.setFoto(imagen);
+        }
+
+        return instancia;
+    }
+
+    // VALORACIÓN
     public static ValoracionDTO convertirValoracion(valoracionEntidad vEntidad) {
         ValoracionDTO instancia = new ValoracionDTO();
         instancia.setId(vEntidad.getId());
         instancia.setPuntaje(vEntidad.getPuntaje());
         instancia.setComentarios(vEntidad.getComentario());
         instancia.setEstado(vEntidad.getEstado());
+    
         instancia.setCreatedAt(vEntidad.getCreatedAt());
         instancia.setUpdatedAt(vEntidad.getUpdatedAt());
 
@@ -78,52 +218,27 @@ public class ConversorEntidad_Dto {
         instancia.setPrecio(sEntidad.getPrecio());
         instancia.setDuracion(sEntidad.getDuracion());
         instancia.setEstado(sEntidad.getEstado());
+
         instancia.setCreatedAt(sEntidad.getCreatedAt());
         instancia.setUpdatedAt(sEntidad.getUpdatedAt());
 
         // RELACIONES
         if (sEntidad.getUsuarioServicio() != null) {
-            // UsuarioDTO usuario = convertirUsuario(sEntidad.getUsuarioServicio);
-            // instancia.setUsuarioServicio(usuario);
+            UsuarioDTO usuario = convertirUsuario(sEntidad.getUsuarioServicio());
+            instancia.setUsuarioServicio(usuario);
         }
-
         if (sEntidad.getBarberoServicio() != null) {
             BarberoDTO barbero = convertirBarbero(sEntidad.getBarberoServicio());
             instancia.setBarberoServicio(barbero);
         }
-
         if (sEntidad.getJefeServicio() != null) {
             JefeDTO jefe = convertirJefe(sEntidad.getJefeServicio());
             instancia.setJefeServicio(jefe);
         }
-
         if (sEntidad.getTurnoServicio() != null) {
             TurnoDTO turno = convertirTurno(sEntidad.getTurnoServicio());
             instancia.setTurnoServicio(turno);
         }
-        return instancia;
-    }
-
-    public static BarberiaDTO convertirBarberia(barberiaEntidad bEntidad) {
-        BarberiaDTO instancia = new BarberiaDTO();
-        instancia.setId(bEntidad.getId());
-        instancia.setNombre(bEntidad.getNombre());
-        instancia.setUbicacion(bEntidad.getUbicacion());
-        instancia.setHorario(bEntidad.getHorario());
-        instancia.setEstado(bEntidad.getEstado());
-
-        if (bEntidad.getJefe() != null) {
-            JefeDTO jefe = convertirJefe(bEntidad.getJefe());
-            instancia.setJefe(jefe);
-        }
-
-        if (bEntidad.getFoto() != null) {
-            ImagenDTO imagen = convertirImagen(bEntidad.getFoto());
-            instancia.setFoto(imagen);
-        }
-
-        instancia.setCreatedAt(bEntidad.getCreatedAt());
-        instancia.setUpdatedAt(bEntidad.getUpdatedAt());
 
         return instancia;
     }
@@ -135,6 +250,7 @@ public class ConversorEntidad_Dto {
         instancia.setFechaTurno(tEntidad.getFechaTurno());
         instancia.setHoraTurno(tEntidad.getHoraTurno());
         instancia.setEstado(tEntidad.getEstado());
+
         instancia.setCreatedAt(tEntidad.getCreatedAt());
         instancia.setUpdatedAt(tEntidad.getUpdatedAt());
 
@@ -143,34 +259,28 @@ public class ConversorEntidad_Dto {
             UsuarioDTO usuario = convertirUsuario(tEntidad.getUsuarioTurno());
             instancia.setUsuarioTurno(usuario);
         }
-
         if (tEntidad.getTurnoBarbero() != null) {
             BarberoDTO turno = convertirBarbero(tEntidad.getTurnoBarbero());
             instancia.setTurnoBarbero(turno);
         }
-
         if (tEntidad.getNotificacion() != null) {
             NotificacionDTO notificacion = convertirNotificacion(tEntidad.getNotificacion());
             instancia.setNotificacion(notificacion);
         }
-
         if (tEntidad.getLiquidacion() != null) {
             LiquidacionDTO liquidacion = convertirLiquidacion(tEntidad.getLiquidacion());
             instancia.setLiquidacion(liquidacion);
         }
-
         if (tEntidad.getServicioTurno() != null) {
             ServicioDTO servicio = convertirServicio(tEntidad.getServicioTurno());
             instancia.setServicioTurno(servicio);
         }
-
         if (tEntidad.getValoracion() != null) {
             ValoracionDTO valoracion = convertirValoracion(tEntidad.getValoracion());
             instancia.setValoracion(valoracion);
         }
 
         return instancia;
-
     }
 
     // LIQUIDACION
@@ -178,6 +288,7 @@ public class ConversorEntidad_Dto {
         LiquidacionDTO instancia = new LiquidacionDTO();
         instancia.setId(lEntidad.getId());
         instancia.setTotal(lEntidad.getTotal());
+
         instancia.setCreatedAt(lEntidad.getCreatedAt());
         instancia.setUpdatedAt(lEntidad.getUpdatedAt());
 
@@ -188,7 +299,6 @@ public class ConversorEntidad_Dto {
         }
 
         return instancia;
-
     }
 
     // NOTIFICACION
@@ -196,6 +306,7 @@ public class ConversorEntidad_Dto {
         NotificacionDTO instancia = new NotificacionDTO();
         instancia.setId(nEntidad.getId());
         instancia.setEstado(nEntidad.getEstado());
+
         instancia.setCreatedAt(nEntidad.getCreatedAt());
         instancia.setUpdatedAt(nEntidad.getUpdatedAt());
 
@@ -216,79 +327,6 @@ public class ConversorEntidad_Dto {
         instancia.setMime(iEntidad.getMime());
         instancia.setNombre(iEntidad.getNombre());
         instancia.setContenido(iEntidad.getContenido());
-
-        return instancia;
-    }
-
-    // JEFE
-    public static JefeDTO convertirJefe(jefeEntidad jEntidad) {
-        JefeDTO instancia = new JefeDTO();
-        instancia.setId(jEntidad.getId());
-        instancia.setRol(jEntidad.getRol());
-        instancia.setEstado(jEntidad.getEstado());
-        instancia.setCreatedAt(jEntidad.getCreatedAt());
-        instancia.setUpdatedAt(jEntidad.getUpdatedAt());
-
-        // RELACIONES
-        if (jEntidad.getUsuarioJefe() != null) {
-            UsuarioDTO usuario = convertirUsuario(jEntidad.getUsuarioJefe());
-            instancia.setUsuarioJefe(usuario);
-        }
-
-        if (jEntidad.getBarberia() != null) {
-            BarberiaDTO barberia = convertirBarberia(jEntidad.getBarberia());
-            instancia.setBarberia(barberia);
-        }
-
-        if (jEntidad.getBarberos() != null) {
-            List<BarberoDTO> barberos = jEntidad.getBarberos().stream().map(
-                (barbero) -> convertirBarbero(barbero)
-            ).toList();
-            instancia.setBarberos(barberos);
-        }
-
-        if (jEntidad.getServicioJefe() != null) {
-            ServicioDTO servicio = convertirServicio(jEntidad.getServicioJefe());
-            instancia.setServicioJefe(servicio);
-        }
-
-        return instancia;
-
-    }
-
-    public static BarberoDTO convertirBarbero(barberoEntidad bEntidad) {
-        BarberoDTO instancia = new BarberoDTO();
-        instancia.setId(bEntidad.getId());
-        instancia.setEstado(bEntidad.getEstado());
-        
-        if (bEntidad.getJefeBarbero() != null) {
-            JefeDTO jefe = convertirJefe(bEntidad.getJefeBarbero());
-            instancia.setJefeBarbero(jefe);
-        }
-
-        if (bEntidad.getUsuarioBarbero() != null) {
-            UsuarioDTO usuario = convertirUsuario(bEntidad.getUsuarioBarbero());
-            instancia.setUsuarioBarbero(usuario);
-        }
-
-        if (bEntidad.getValoracion() != null) {
-            ValoracionDTO valoracion = convertirValoracion(bEntidad.getValoracion());
-            instancia.setValoracion(valoracion);
-        }
-
-        if (bEntidad.getServicios() != null) {
-            List<ServicioDTO> servicios = bEntidad.getServicios().stream().map(
-                (servicio) -> convertirServicio(servicio)
-            ).toList();
-            instancia.setServicios(servicios);
-        }
-
-        if (bEntidad.getTurnos() != null) {
-            List<ServicioDTO> servicios = bEntidad.getServicios().stream().map(
-                (servicio) -> convertirServicio(servicio)
-            ).toList();
-            instancia.setServicios(servicios);
-        }
 
         return instancia;
     }

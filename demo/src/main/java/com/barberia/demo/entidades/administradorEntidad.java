@@ -31,35 +31,31 @@ public class administradorEntidad {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    // ROL
     @Enumerated(EnumType.STRING)
     private Rol rol;
-    
     @Column(updatable = false)
     private Boolean estado;
-    // Datos de creacion y ultima modificacion.
-    @Column(updatable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date createdAt;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date updatedAt;
-
+    
+    // Relaciones
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private usuarioEntidad usuarioAdmin;
 
+    // Datos de creacion y ultima modificacion.
+    @Column(updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date createdAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date updatedAt;
+
     //------------------------METODOS--------------------------------------
 
-
-    @PrePersist // Before creating a user
-    protected void onCreate() {
-        this.createdAt = new Date(); // Default current_timestamp
+    @PrePersist // Antes de crear
+    protected void creacion() {
+        this.createdAt = new Date(); // Se asignará la fecha actual
     }
-
-    @PreUpdate // before update
-    protected void onUpdate() {
-        this.updatedAt = new Date(); // default current_timestamp on update current_timestamp
+    @PreUpdate // Antes de actualizar
+    protected void actualizacion() {
+        this.updatedAt = new Date(); // Se asignará la fecha actual
     }
-
 }

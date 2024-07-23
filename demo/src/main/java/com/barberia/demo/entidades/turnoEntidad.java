@@ -30,7 +30,6 @@ public class turnoEntidad {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
     // Fecha y hora del turno en variables separadas.
     @Column(nullable = false)
     private LocalDate fechaTurno;
@@ -40,6 +39,7 @@ public class turnoEntidad {
     @Column(nullable = false)
     private Boolean estado;
 
+    // Relaciones
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private usuarioEntidad usuarioTurno;
@@ -68,16 +68,14 @@ public class turnoEntidad {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
 
-    
+    //------------------------METODOS--------------------------------------
 
-    @PrePersist // Before creating a user
-    protected void onCreate() {
-        this.createdAt = new Date(); // Default current_timestamp
+    @PrePersist // Antes de crear
+    protected void creacion() {
+        this.createdAt = new Date(); // Se asignará la fecha actual
     }
-
-    @PreUpdate // before update
-    protected void onUpdate() {
-        this.updatedAt = new Date(); // default current_timestamp on update current_timestamp
+    @PreUpdate // Antes de actualizar
+    protected void actualizacion() {
+        this.updatedAt = new Date(); // Se asignará la fecha actual
     }
-
 }

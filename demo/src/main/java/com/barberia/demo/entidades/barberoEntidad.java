@@ -30,10 +30,10 @@ public class barberoEntidad {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    
     @Column(nullable = false)
     private Boolean estado;
 
+    // Relaciones
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "jefe_id")
     private jefeEntidad jefeBarbero;
@@ -47,7 +47,7 @@ public class barberoEntidad {
 
     @OneToMany(mappedBy = "turnoBarbero", fetch = FetchType.LAZY)
     private List<turnoEntidad> turnos;
-
+    
     @OneToOne(mappedBy = "barberoValoracion", fetch = FetchType.LAZY)
     private valoracionEntidad valoracion;
 
@@ -55,18 +55,17 @@ public class barberoEntidad {
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
 
-    @PrePersist // Before creating a user
-    protected void onCreate() {
-        this.createdAt = new Date(); // Default current_timestamp
-    }
+    //------------------------METODOS--------------------------------------
 
-    @PreUpdate // before update
-    protected void onUpdate() {
-        this.updatedAt = new Date(); // default current_timestamp on update current_timestamp
+    @PrePersist // Antes de crear
+    protected void creacion() {
+        this.createdAt = new Date(); // Se asignará la fecha actual
     }
-
+    @PreUpdate // Antes de actualizar
+    protected void actualizacion() {
+        this.updatedAt = new Date(); // Se asignará la fecha actual
+    }
 }

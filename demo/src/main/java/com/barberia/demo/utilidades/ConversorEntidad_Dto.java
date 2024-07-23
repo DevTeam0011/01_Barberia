@@ -14,7 +14,6 @@ import com.barberia.demo.dtos.ServicioDTO;
 import com.barberia.demo.dtos.TurnoDTO;
 import com.barberia.demo.dtos.UsuarioDTO;
 import com.barberia.demo.dtos.ValoracionDTO;
-import com.barberia.demo.entidades.ImagenEntidad;
 import com.barberia.demo.entidades.administradorEntidad;
 import com.barberia.demo.entidades.jefeEntidad;
 import com.barberia.demo.entidades.liquidacionEntidad;
@@ -22,6 +21,7 @@ import com.barberia.demo.entidades.notificacionEntidad;
 import com.barberia.demo.entidades.servicioEntidad;
 import com.barberia.demo.entidades.turnoEntidad;
 import com.barberia.demo.entidades.usuarioEntidad;
+import com.barberia.demo.entidades.valoracionEntidad;
 
 import jakarta.persistence.criteria.CriteriaBuilder.In;
 
@@ -44,6 +44,26 @@ public class ConversorEntidad_Dto {
 
     public static UsuarioDTO convertirUsuario(usuarioEntidad uEntidad) {
         return new UsuarioDTO();
+
+
+    } 
+    
+    public static ValoracionDTO convertirValoracion(valoracionEntidad vEntidad){
+        ValoracionDTO instancia = new ValoracionDTO();
+        instancia.setId(vEntidad.getId());
+        instancia.setPuntaje(vEntidad.getPuntaje());
+        instancia.setComentarios(vEntidad.getComentario());
+        instancia.setEstado(vEntidad.getEstado());
+        instancia.setCreatedAt(vEntidad.getCreatedAt());
+        instancia.setUpdatedAt(vEntidad.getUpdatedAt());
+
+       /*  if(vEntidad.getBarberoValoracion() !=null){
+        BarberoDTO usuario = convertirBarbero(vEntidad.getBarberoValoracion());
+        instancia.setBarberoValoracion(usuario);
+        }*/
+        return instancia;
+
+
     }
 
     // SERVICIO

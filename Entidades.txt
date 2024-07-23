@@ -1,5 +1,4 @@
 
-
 USUARIO (usuario en busca de turno)
 BARBERO (trabajador de la barberia)
 BARBERIA (local comercial)
@@ -17,6 +16,61 @@ Venta de productos y cursos.
 
 RESOLVER
 En caso de falta del barbero: que sucede con el turno?
+
+***ACCIONES***
+GENERALES: Inicio/cierre de sesion, registro, verificacion de perfil.
+
+INICIO: (Index)
+- Ofrecerle una barberia. (si no es cliente) filtrando por ubicacion/valoracion.
+- Top Barberias.
+- Busqueda por nombre.
+
+USUARIO: (sesion iniciada)
+    - Accede a una lista de servicios que ofrece su barberia con la info que le corresponde.
+    - Accede a una lista de barberos disponibles.
+    - Accede a la seleccion de turno (fecha/hora) - Turno.
+    - Confirmacion de turno.
+    - Recuperacion de contraseñas gral.
+    - Seccion de turnos.
+    - Recordatorios de turnos.
+    - Canelacion de turno (notificaion)
+
+JEFE: (sesion iniciada)
+    - Luego del registro de usuario(jefe).
+    - Registro de barberia.
+    - Registro de servicios que ofrece.
+    - Registro de barberos.
+    - Panel de control:
+    - Turnos finalizados/cancelados.
+    - Valoraciones de empleados.
+    - Lista de empleados (acciones).
+    - Seccion de flujo de ventas.
+    - Recuperacion de contraseñas gral.
+
+BARBEROS: (sesion iniciada)
+    - Listado de turnos solicitados.
+    - Bandeja de notificaciones.
+    - Listado de valoraciones recibidas/comentarios.
+    - Recuperacion de contraseñas gral.
+    - Recordatorios de turnos.
+    - Canelacion de turno (notificaion y solicitud de programacion).
+
+ADMIN(PROGRAMADORES):
+    - Panel de control:
+       - Alta/Baja - Jefes.
+       - Alta/Baja - usuarios.
+       - Control de valoraciones.
+    - Envio de mensajes.
+
+
+
+
+
+
+
+
+
+
 
 
 

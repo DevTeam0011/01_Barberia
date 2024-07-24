@@ -8,7 +8,7 @@ import lombok.Data;
 public class ValoracionDTO {
     private UUID id;
     private Double puntaje;
-    private String comentarios;
+    private String comentario;
     private Boolean estado;
 
     private BarberoDTO barberoValoracion;

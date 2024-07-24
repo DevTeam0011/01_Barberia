@@ -16,7 +16,7 @@ public class UsuarioDTO {
     private String telefono;
     private Boolean estado;
 
-    private AdministadorDTO admin;
+    private AdministradorDTO admin;
     private BarberoDTO barbero;
     private List<TurnoDTO> turnos;
     private List<ServicioDTO> servicios;

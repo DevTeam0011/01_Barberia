@@ -1,8 +1,10 @@
 package com.barberia.demo.utilidades;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.barberia.demo.dtos.AdministadorDTO;
+import com.barberia.demo.dtos.AdministradorDTO;
 import com.barberia.demo.dtos.BarberiaDTO;
 import com.barberia.demo.dtos.ImagenDTO;
 import com.barberia.demo.dtos.JefeDTO;
@@ -28,26 +30,42 @@ import com.barberia.demo.entidades.usuarioEntidad;
 import com.barberia.demo.entidades.valoracionEntidad;
 
 public class ConversorEntidad_Dto {
+    private static enum entidades {
+        admin, barberia, barbero, imagen, jefe, liquidacion, notificacion, servicio, turno, usuario, valoracion
+    }
+    private static Map<entidades, Object> DTOsTemporales = new HashMap<>();
+
     // ADMIN
-    public static AdministadorDTO convertirAdmin(administradorEntidad aEntidad) {
-        AdministadorDTO instancia = new AdministadorDTO();
+    public static AdministradorDTO convertirAdmin(administradorEntidad aEntidad) {
+        // OBTENCIÓN DEL DTO SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
+        if (DTOsTemporales.containsKey(entidades.admin)) 
+            return (AdministradorDTO) DTOsTemporales.get(entidades.admin);
+
+        AdministradorDTO instancia = new AdministradorDTO();
         instancia.setId(aEntidad.getId());
         instancia.setRol(aEntidad.getRol());
         instancia.setEstado(aEntidad.getEstado());
 
         instancia.setCreatedAt(aEntidad.getCreatedAt());
         instancia.setUpdatedAt(aEntidad.getUpdatedAt());
+        
+        DTOsTemporales.put(entidades.admin, instancia);
 
         if (aEntidad.getUsuarioAdmin() != null) {
             UsuarioDTO usuario = convertirUsuario(aEntidad.getUsuarioAdmin());
             instancia.setUsuarioAdmin(usuario);
         }
 
+        DTOsTemporales.clear();
         return instancia;
     }
 
     // USUARIO
     public static UsuarioDTO convertirUsuario(usuarioEntidad uEntidad) {
+        // OBTENCIÓN DEL DTO SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
+        if (DTOsTemporales.containsKey(entidades.usuario)) 
+            return (UsuarioDTO) DTOsTemporales.get(entidades.usuario);
+        
         UsuarioDTO instancia = new UsuarioDTO();
         instancia.setId(uEntidad.getId());
         instancia.setRol(uEntidad.getRol());
@@ -60,8 +78,10 @@ public class ConversorEntidad_Dto {
         instancia.setCreatedAt(uEntidad.getCreatedAt());
         instancia.setUpdatedAt(uEntidad.getUpdatedAt());
 
+        DTOsTemporales.put(entidades.usuario, instancia);
+
         if (uEntidad.getAdmin() != null) {
-            AdministadorDTO admin = convertirAdmin(uEntidad.getAdmin());
+            AdministradorDTO admin = convertirAdmin(uEntidad.getAdmin());
             instancia.setAdmin(admin);
         }
         if (uEntidad.getBarbero() != null) {
@@ -89,11 +109,16 @@ public class ConversorEntidad_Dto {
             instancia.setFoto(foto);
         }
 
+        DTOsTemporales.clear();
         return instancia;
     }
 
     // JEFE
     public static JefeDTO convertirJefe(jefeEntidad jEntidad) {
+        // OBTENCIÓN DEL DTO SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
+        if (DTOsTemporales.containsKey(entidades.jefe))
+            return (JefeDTO) DTOsTemporales.get(entidades.jefe);
+
         JefeDTO instancia = new JefeDTO();
         instancia.setId(jEntidad.getId());
         instancia.setRol(jEntidad.getRol());
@@ -101,6 +126,8 @@ public class ConversorEntidad_Dto {
 
         instancia.setCreatedAt(jEntidad.getCreatedAt());
         instancia.setUpdatedAt(jEntidad.getUpdatedAt());
+
+        DTOsTemporales.put(entidades.jefe, instancia);
 
         // RELACIONES
         if (jEntidad.getUsuarioJefe() != null) {
@@ -122,17 +149,24 @@ public class ConversorEntidad_Dto {
             instancia.setServicioJefe(servicio);
         }
 
+        DTOsTemporales.clear();
         return instancia;
     }
 
     // BARBERO
     public static BarberoDTO convertirBarbero(barberoEntidad bEntidad) {
+        // OBTENCIÓN DEL DTO SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
+        if (DTOsTemporales.containsKey(entidades.barbero))
+            return (BarberoDTO) DTOsTemporales.get(entidades.barbero);
+
         BarberoDTO instancia = new BarberoDTO();
         instancia.setId(bEntidad.getId());
         instancia.setEstado(bEntidad.getEstado());
 
         instancia.setCreatedAt(bEntidad.getCreatedAt());
         instancia.setUpdatedAt(bEntidad.getUpdatedAt());
+
+        DTOsTemporales.put(entidades.barbero, instancia);
         
         if (bEntidad.getJefeBarbero() != null) {
             JefeDTO jefe = convertirJefe(bEntidad.getJefeBarbero());
@@ -159,11 +193,16 @@ public class ConversorEntidad_Dto {
             instancia.setTurnos(turnos);
         }
 
+        DTOsTemporales.clear();
         return instancia;
     }
 
     // BARBERÍA
     public static BarberiaDTO convertirBarberia(barberiaEntidad bEntidad) {
+        // OBTENCIÓN DEL DTO SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
+        if (DTOsTemporales.containsKey(entidades.barberia))
+            return (BarberiaDTO) DTOsTemporales.get(entidades.barberia);
+
         BarberiaDTO instancia = new BarberiaDTO();
         instancia.setId(bEntidad.getId());
         instancia.setNombre(bEntidad.getNombre());
@@ -174,6 +213,8 @@ public class ConversorEntidad_Dto {
         instancia.setCreatedAt(bEntidad.getCreatedAt());
         instancia.setUpdatedAt(bEntidad.getUpdatedAt());
 
+        DTOsTemporales.put(entidades.barberia, instancia);
+
         if (bEntidad.getJefe() != null) {
             JefeDTO jefe = convertirJefe(bEntidad.getJefe());
             instancia.setJefe(jefe);
@@ -183,19 +224,26 @@ public class ConversorEntidad_Dto {
             instancia.setFoto(imagen);
         }
 
+        DTOsTemporales.clear();
         return instancia;
     }
 
     // VALORACIÓN
     public static ValoracionDTO convertirValoracion(valoracionEntidad vEntidad) {
+        // OBTENCIÓN DEL DTO SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
+        if (DTOsTemporales.containsKey(entidades.valoracion))
+            return (ValoracionDTO) DTOsTemporales.get(entidades.valoracion);
+
         ValoracionDTO instancia = new ValoracionDTO();
         instancia.setId(vEntidad.getId());
         instancia.setPuntaje(vEntidad.getPuntaje());
-        instancia.setComentarios(vEntidad.getComentario());
+        instancia.setComentario(vEntidad.getComentario());
         instancia.setEstado(vEntidad.getEstado());
     
         instancia.setCreatedAt(vEntidad.getCreatedAt());
         instancia.setUpdatedAt(vEntidad.getUpdatedAt());
+
+        DTOsTemporales.put(entidades.valoracion, instancia);
 
         if(vEntidad.getBarberoValoracion() !=null){
             BarberoDTO usuario = convertirBarbero(vEntidad.getBarberoValoracion());
@@ -207,11 +255,16 @@ public class ConversorEntidad_Dto {
             instancia.setTurnoValoracion(turno);
         }
 
+        DTOsTemporales.clear();
         return instancia;
     }
 
     // SERVICIO
     public static ServicioDTO convertirServicio(servicioEntidad sEntidad) {
+        // OBTENCIÓN DEL DTO SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
+        if (DTOsTemporales.containsKey(entidades.servicio))
+            return (ServicioDTO) DTOsTemporales.get(entidades.servicio);
+
         ServicioDTO instancia = new ServicioDTO();
         instancia.setId(sEntidad.getId());
         instancia.setNombre(sEntidad.getNombre());
@@ -221,6 +274,8 @@ public class ConversorEntidad_Dto {
 
         instancia.setCreatedAt(sEntidad.getCreatedAt());
         instancia.setUpdatedAt(sEntidad.getUpdatedAt());
+
+        DTOsTemporales.put(entidades.servicio, instancia);
 
         // RELACIONES
         if (sEntidad.getUsuarioServicio() != null) {
@@ -240,11 +295,16 @@ public class ConversorEntidad_Dto {
             instancia.setTurnoServicio(turno);
         }
 
+        DTOsTemporales.clear();
         return instancia;
     }
 
     // TURNO
     public static TurnoDTO convertirTurno(turnoEntidad tEntidad) {
+        // OBTENCIÓN DEL DTO SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
+        if (DTOsTemporales.containsKey(entidades.turno)) 
+            return (TurnoDTO) DTOsTemporales.get(entidades.turno);
+
         TurnoDTO instancia = new TurnoDTO();
         instancia.setId(tEntidad.getId());
         instancia.setFechaTurno(tEntidad.getFechaTurno());
@@ -253,6 +313,8 @@ public class ConversorEntidad_Dto {
 
         instancia.setCreatedAt(tEntidad.getCreatedAt());
         instancia.setUpdatedAt(tEntidad.getUpdatedAt());
+
+        DTOsTemporales.put(entidades.turno, instancia);
 
         // RELACIONES
         if (tEntidad.getUsuarioTurno() != null) {
@@ -280,11 +342,16 @@ public class ConversorEntidad_Dto {
             instancia.setValoracion(valoracion);
         }
 
+        DTOsTemporales.clear();
         return instancia;
     }
 
     // LIQUIDACION
     public static LiquidacionDTO convertirLiquidacion(liquidacionEntidad lEntidad) {
+        // OBTENCIÓN DEL DTO SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
+        if (DTOsTemporales.containsKey(entidades.liquidacion))
+            return (LiquidacionDTO) DTOsTemporales.get(entidades.liquidacion);
+
         LiquidacionDTO instancia = new LiquidacionDTO();
         instancia.setId(lEntidad.getId());
         instancia.setTotal(lEntidad.getTotal());
@@ -292,17 +359,24 @@ public class ConversorEntidad_Dto {
         instancia.setCreatedAt(lEntidad.getCreatedAt());
         instancia.setUpdatedAt(lEntidad.getUpdatedAt());
 
+        DTOsTemporales.put(entidades.liquidacion, instancia);
+
         // RELACIONES
         if (lEntidad.getTurnoLiquidacion() != null) {
             TurnoDTO turno = convertirTurno(lEntidad.getTurnoLiquidacion());
             instancia.setTurnoLiquidacion(turno);
         }
 
+        DTOsTemporales.clear();
         return instancia;
     }
 
     // NOTIFICACION
     public static NotificacionDTO convertirNotificacion(notificacionEntidad nEntidad) {
+        // OBTENCIÓN DEL DTO SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
+        if (DTOsTemporales.containsKey(entidades.notificacion))
+            return (NotificacionDTO) DTOsTemporales.get(entidades.notificacion);
+
         NotificacionDTO instancia = new NotificacionDTO();
         instancia.setId(nEntidad.getId());
         instancia.setEstado(nEntidad.getEstado());
@@ -310,14 +384,16 @@ public class ConversorEntidad_Dto {
         instancia.setCreatedAt(nEntidad.getCreatedAt());
         instancia.setUpdatedAt(nEntidad.getUpdatedAt());
 
+        DTOsTemporales.put(entidades.notificacion, instancia);
+
         // RELACIONES
         if (nEntidad.getTurnoNotificacion() != null) {
             TurnoDTO turno = convertirTurno(nEntidad.getTurnoNotificacion());
             instancia.setTurnoNotificacion(turno);
         }
 
+        DTOsTemporales.clear();
         return instancia;
-
     }
 
     // IMAGEN

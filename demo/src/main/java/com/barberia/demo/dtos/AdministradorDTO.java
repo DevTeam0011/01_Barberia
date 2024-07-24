@@ -6,7 +6,7 @@ import com.barberia.demo.enums.Rol;
 import lombok.Data;
 
 @Data
-public class AdministadorDTO {
+public class AdministradorDTO {
     private UUID id;
     private Rol rol;
     private Boolean estado;

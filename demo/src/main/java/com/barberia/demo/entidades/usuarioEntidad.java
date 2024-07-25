@@ -44,7 +44,7 @@ public class usuarioEntidad {
     private String telefono;
     // Estado de usuario.
     @Column(nullable = false)
-    private Boolean estado;
+    private Boolean estado = true;
 
     // Relaciones
     @OneToOne(mappedBy = "usuarioAdmin", fetch = FetchType.LAZY)

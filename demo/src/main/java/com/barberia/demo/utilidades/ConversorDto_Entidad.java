@@ -33,8 +33,58 @@ public class ConversorDto_Entidad {
     }
     private static Map<entidades, Object> EntidadesTemporales = new HashMap<>();
 
+    @SuppressWarnings("unchecked")
+    public static <entidad>entidad convertir(Object dto) throws Exception {
+        entidad retorno = null;
+
+        if (dto instanceof AdministradorDTO) {
+            administradorEntidad admin = convertirAdmin((AdministradorDTO) dto);
+            retorno = (entidad) admin;
+        }
+        if (dto instanceof UsuarioDTO) {
+            usuarioEntidad usuario = convertirUsuario((UsuarioDTO) dto);
+            retorno = (entidad) usuario;
+        }
+        if (dto instanceof JefeDTO) {
+            jefeEntidad jefe = convertirJefe((JefeDTO) dto);
+            retorno = (entidad) jefe;
+        }
+        if (dto instanceof BarberoDTO) {
+            retorno = (entidad) convertirBarbero((BarberoDTO) dto);
+        }
+        if (dto instanceof BarberiaDTO) {
+            retorno = (entidad) convertirBarberia((BarberiaDTO) dto);
+        }
+        if (dto instanceof ValoracionDTO) {
+            retorno = (entidad) convertirValoracion((ValoracionDTO) dto);
+        }
+        if (dto instanceof ServicioDTO) {
+            retorno = (entidad) convertirServicio((ServicioDTO) dto);
+        }
+        if (dto instanceof TurnoDTO) {
+            retorno = (entidad) convertirTurno((TurnoDTO) dto);
+        }
+        if (dto instanceof LiquidacionDTO) {
+            retorno = (entidad) convertirLiquidacion((LiquidacionDTO) dto);
+        }
+        if (dto instanceof NotificacionDTO) {
+            retorno = (entidad) convertirNotificacion((NotificacionDTO) dto);
+        }
+        if (dto instanceof ImagenDTO) {
+            retorno = (entidad) convertirImagen((ImagenDTO) dto);
+        }
+
+        EntidadesTemporales.clear();
+
+        if (retorno == null) {
+            throw new Exception("El tipo de dto ingresado no es válido: " + dto.getClass().toString());
+        }
+
+        return retorno;
+    }
+
     // ADMIN
-    public static administradorEntidad convertirAdmin(AdministradorDTO aDTO) {
+    private static administradorEntidad convertirAdmin(AdministradorDTO aDTO) {
         // OBTENCIÓN DEL Entidad SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
         if (EntidadesTemporales.containsKey(entidades.admin)) 
             return (administradorEntidad) EntidadesTemporales.get(entidades.admin);
@@ -53,13 +103,12 @@ public class ConversorDto_Entidad {
             usuarioEntidad usuario = convertirUsuario(aDTO.getUsuarioAdmin());
             instancia.setUsuarioAdmin(usuario);
         }
-
-        EntidadesTemporales.clear();
+        
         return instancia;
     }
 
     // USUARIO
-    public static usuarioEntidad convertirUsuario(UsuarioDTO uDTO) {
+    private static usuarioEntidad convertirUsuario(UsuarioDTO uDTO) {
         // OBTENCIÓN DEL Entidad SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
         if (EntidadesTemporales.containsKey(entidades.usuario)) 
             return (usuarioEntidad) EntidadesTemporales.get(entidades.usuario);
@@ -107,12 +156,11 @@ public class ConversorDto_Entidad {
             instancia.setFoto(foto);
         }
 
-        EntidadesTemporales.clear();
         return instancia;
     }
 
     // JEFE
-    public static jefeEntidad convertirJefe(JefeDTO jDTO) {
+    private static jefeEntidad convertirJefe(JefeDTO jDTO) {
         // OBTENCIÓN DEL Entidad SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
         if (EntidadesTemporales.containsKey(entidades.jefe))
             return (jefeEntidad) EntidadesTemporales.get(entidades.jefe);
@@ -147,12 +195,11 @@ public class ConversorDto_Entidad {
             instancia.setServicioJefe(servicio);
         }
 
-        EntidadesTemporales.clear();
         return instancia;
     }
 
     // BARBERO
-    public static barberoEntidad convertirBarbero(BarberoDTO bDTO) {
+    private static barberoEntidad convertirBarbero(BarberoDTO bDTO) {
         // OBTENCIÓN DEL Entidad SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
         if (EntidadesTemporales.containsKey(entidades.barbero))
             return (barberoEntidad) EntidadesTemporales.get(entidades.barbero);
@@ -191,12 +238,11 @@ public class ConversorDto_Entidad {
             instancia.setTurnos(turnos);
         }
 
-        EntidadesTemporales.clear();
         return instancia;
     }
 
     // BARBERÍA
-    public static barberiaEntidad convertirBarberia(BarberiaDTO bDTO) {
+    private static barberiaEntidad convertirBarberia(BarberiaDTO bDTO) {
         // OBTENCIÓN DEL Entidad SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
         if (EntidadesTemporales.containsKey(entidades.barberia))
             return (barberiaEntidad) EntidadesTemporales.get(entidades.barberia);
@@ -222,12 +268,11 @@ public class ConversorDto_Entidad {
             instancia.setFoto(imagen);
         }
 
-        EntidadesTemporales.clear();
         return instancia;
     }
 
     // VALORACIÓN
-    public static valoracionEntidad convertirValoracion(ValoracionDTO vDTO) {
+    private static valoracionEntidad convertirValoracion(ValoracionDTO vDTO) {
         // OBTENCIÓN DEL Entidad SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
         if (EntidadesTemporales.containsKey(entidades.valoracion))
             return (valoracionEntidad) EntidadesTemporales.get(entidades.valoracion);
@@ -253,12 +298,11 @@ public class ConversorDto_Entidad {
             instancia.setTurnoValoracion(turno);
         }
 
-        EntidadesTemporales.clear();
         return instancia;
     }
 
     // SERVICIO
-    public static servicioEntidad convertirServicio(ServicioDTO sDTO) {
+    private static servicioEntidad convertirServicio(ServicioDTO sDTO) {
         // OBTENCIÓN DEL Entidad SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
         if (EntidadesTemporales.containsKey(entidades.servicio))
             return (servicioEntidad) EntidadesTemporales.get(entidades.servicio);
@@ -293,12 +337,11 @@ public class ConversorDto_Entidad {
             instancia.setTurnoServicio(turno);
         }
 
-        EntidadesTemporales.clear();
         return instancia;
     }
 
     // TURNO
-    public static turnoEntidad convertirTurno(TurnoDTO tDTO) {
+    private static turnoEntidad convertirTurno(TurnoDTO tDTO) {
         // OBTENCIÓN DEL Entidad SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
         if (EntidadesTemporales.containsKey(entidades.turno)) 
             return (turnoEntidad) EntidadesTemporales.get(entidades.turno);
@@ -340,12 +383,11 @@ public class ConversorDto_Entidad {
             instancia.setValoracion(valoracion);
         }
 
-        EntidadesTemporales.clear();
         return instancia;
     }
 
     // LIQUIDACION
-    public static liquidacionEntidad convertirLiquidacion(LiquidacionDTO lDTO) {
+    private static liquidacionEntidad convertirLiquidacion(LiquidacionDTO lDTO) {
         // OBTENCIÓN DEL Entidad SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
         if (EntidadesTemporales.containsKey(entidades.liquidacion))
             return (liquidacionEntidad) EntidadesTemporales.get(entidades.liquidacion);
@@ -365,12 +407,11 @@ public class ConversorDto_Entidad {
             instancia.setTurnoLiquidacion(turno);
         }
 
-        EntidadesTemporales.clear();
         return instancia;
     }
 
     // NOTIFICACION
-    public static notificacionEntidad convertirNotificacion(NotificacionDTO nDTO) {
+    private static notificacionEntidad convertirNotificacion(NotificacionDTO nDTO) {
         // OBTENCIÓN DEL Entidad SI YA SE MAPEÓ (para evitar bucles infinitos al mapear las relaciones)
         if (EntidadesTemporales.containsKey(entidades.notificacion))
             return (notificacionEntidad) EntidadesTemporales.get(entidades.notificacion);
@@ -390,12 +431,11 @@ public class ConversorDto_Entidad {
             instancia.setTurnoNotificacion(turno);
         }
 
-        EntidadesTemporales.clear();
         return instancia;
     }
 
     // IMAGEN
-    public static ImagenEntidad convertirImagen(ImagenDTO iDTO) {
+    private static ImagenEntidad convertirImagen(ImagenDTO iDTO) {
         ImagenEntidad instancia = new ImagenEntidad();
         instancia.setId(iDTO.getId());
         instancia.setMime(iDTO.getMime());

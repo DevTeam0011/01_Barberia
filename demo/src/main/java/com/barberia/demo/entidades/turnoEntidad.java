@@ -50,7 +50,7 @@ public class turnoEntidad {
 
     @OneToOne(mappedBy = "turnoNotificacion", fetch = FetchType.LAZY)
     private notificacionEntidad notificacion;
-
+    // TRATAR MAS ADELANTE EL TEMA DE SECCION DE LIQUIDACION.
     @OneToOne(mappedBy = "turnoLiquidacion", fetch = FetchType.LAZY)
     private liquidacionEntidad liquidacion;
 

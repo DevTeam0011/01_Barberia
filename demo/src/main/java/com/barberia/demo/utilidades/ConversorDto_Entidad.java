@@ -41,7 +41,7 @@ public class ConversorDto_Entidad {
 
         administradorEntidad instancia = new administradorEntidad();
         instancia.setId(aDTO.getId());
-        instancia.setRol(aDTO.getRol());
+        // instancia.setRol(aDTO.getRol());
         instancia.setEstado(aDTO.getEstado());
 
         instancia.setCreatedAt(aDTO.getCreatedAt());
@@ -119,7 +119,7 @@ public class ConversorDto_Entidad {
 
         jefeEntidad instancia = new jefeEntidad();
         instancia.setId(jDTO.getId());
-        instancia.setRol(jDTO.getRol());
+        // instancia.setRol(jDTO.getRol());
         instancia.setEstado(jDTO.getEstado());
 
         instancia.setCreatedAt(jDTO.getCreatedAt());

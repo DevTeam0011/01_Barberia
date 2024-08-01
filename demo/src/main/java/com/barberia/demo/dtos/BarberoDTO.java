@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class BarberoDTO {
     private UUID id;
-    private Boolean estado;
+    private Boolean estado;                                
     private JefeDTO jefeBarbero;
     private UsuarioDTO usuarioBarbero;
 

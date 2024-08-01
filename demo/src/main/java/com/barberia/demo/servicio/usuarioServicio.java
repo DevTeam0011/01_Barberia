@@ -18,46 +18,49 @@ import java.util.UUID;
 public class usuarioServicio {
    @Autowired
    usuarioRepositorio uRepositorio;
-   //CREAR USUARIO
+
+   // CREAR USUARIO
    @Transactional
-   public void crearUsuario(UsuarioDTO uDTO){
+   public void crearUsuario(UsuarioDTO uDTO) {
       usuarioEntidad newUsuario = ConversorDto_Entidad.convertirUsuario(uDTO);
       uRepositorio.save(newUsuario);
    }
 
-   //MODIFICAR USUARIO
+   // MODIFICAR USUARIO
    @Transactional
-   public void modificarUsuario(UsuarioDTO uDTO){
-      Optional <usuarioEntidad> usuario = uRepositorio.findById(uDTO.getId());
-      if (usuario.isPresent()){
+   public void modificarUsuario(UsuarioDTO uDTO) {
+      Optional<usuarioEntidad> usuario = uRepositorio.findById(uDTO.getId());
+      if (usuario.isPresent()) {
          usuarioEntidad newUsuario = usuario.get();
          newUsuario = ConversorDto_Entidad.convertirUsuario(uDTO);
          uRepositorio.save(newUsuario);
       }
    }
-   //ELIMINAR(DAR DE BAJA)
+
+   // ELIMINAR(DAR DE BAJA)
    @Transactional
-   public void eliminarUsuario(UUID id){
-      Optional <usuarioEntidad> usuario = uRepositorio.findById(id);
+   public void eliminarUsuario(UUID id) {
+      Optional<usuarioEntidad> usuario = uRepositorio.findById(id);
       if (usuario.isPresent()) {
          usuarioEntidad newUsuario = usuario.get();
          newUsuario.setEstado(false);
          uRepositorio.save(newUsuario);
       }
    }
-   //BUSQUEDA
+
+   // LISTAR USUARIOS
    @Transactional(readOnly = true)
-   public List<UsuarioDTO> listarUsuarios(){
+   public List<UsuarioDTO> listarUsuarios() {
       List<usuarioEntidad> usuarios = uRepositorio.findAll();
-    return usuarios.stream().map(
-            usuario -> ConversorEntidad_Dto.convertirUsuario(usuario)
-    ).toList();
+      return usuarios.stream().map(
+            usuario -> ConversorEntidad_Dto.convertirUsuario(usuario)).toList();
    }
-//BUSCAR POR EMAIL
-   public UsuarioDTO buscarPorEmail(String email){
+
+   // BUSCAR POR EMAIL
+   public UsuarioDTO buscarPorEmail(String email) {
       return ConversorEntidad_Dto.convertirUsuario(uRepositorio.buscarPorEmail(email).get());
    }
+
+   //Busqueda por roles
+   
 }
-
-
-

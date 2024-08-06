@@ -10,6 +10,7 @@ public class BarberiaDTO {
     private UUID id;
     private String nombre;
     private String ubicacion;
+    private String localidad;
     private String horario;
     private Boolean estado;
 

@@ -207,6 +207,7 @@ public class ConversorEntidad_Dto {
         instancia.setId(bEntidad.getId());
         instancia.setNombre(bEntidad.getNombre());
         instancia.setUbicacion(bEntidad.getUbicacion());
+        instancia.setLocalidad(bEntidad.getLocalidad());
         instancia.setHorario(bEntidad.getHorario());
         instancia.setEstado(bEntidad.getEstado());
         

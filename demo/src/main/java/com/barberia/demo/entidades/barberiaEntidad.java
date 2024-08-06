@@ -32,6 +32,7 @@ public class barberiaEntidad {
     private String nombre;
     @Column(nullable = false)
     private String ubicacion;
+    private String localidad;
     @Column(nullable = false)
     private String horario;
     @Column(nullable = false)

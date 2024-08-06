@@ -28,7 +28,4 @@ public interface turnoRepositorio extends JpaRepository<turnoEntidad, UUID> {
    @Query("SELECT u FROM turnoEntidad u WHERE u.fechaTurno = :fecha")
    public List<turnoEntidad> listarTurnosxFecha(@Param("fecha") LocalDate fecha);
 
- 
-
-
 }

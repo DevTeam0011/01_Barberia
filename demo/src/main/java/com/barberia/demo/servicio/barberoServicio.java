@@ -35,6 +35,7 @@ public class barberoServicio {
     // CREAR BARBERO
     @Transactional
     public void crearBarbero(BarberoDTO bDTO) {
+        bDTO.setEstado(true);
         barberoEntidad newBarbero = ConversorDto_Entidad.convertirBarbero(bDTO);
 
         if (bDTO.getUsuarioBarbero() != null) {

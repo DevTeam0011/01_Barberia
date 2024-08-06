@@ -31,12 +31,49 @@ public class turnoServicio {
     @Autowired
     usuarioRepositorio uRepositorio;
 
+    @Autowired
+    private notificacionServicio nService;
+
     // CREAR TURNO
     @Transactional
     public void crearTurno(TurnoDTO tDTO) {
         turnoEntidad newTurno = ConversorDto_Entidad.convertirTurno(tDTO);
 
+        if (tDTO.getUsuarioTurno() != null) {
+            Optional<usuarioEntidad> usuarioOpt = uRepositorio.findById(tDTO.getUsuarioTurno().getId());
+            if (usuarioOpt.isPresent()) {
+                usuarioEntidad usuario = usuarioOpt.get();
+                newTurno.setUsuarioTurno(usuario);
+            }
+        }
+
+        if (tDTO.getTurnoBarbero() != null) {
+            Optional<barberoEntidad> barberoOpt = bRepositorio.findById(tDTO.getTurnoBarbero().getId());
+            if (barberoOpt.isPresent()) {
+                barberoEntidad barbero = barberoOpt.get();
+                newTurno.setTurnoBarbero(barbero);
+            }
+        }
+
         tRepositorio.save(newTurno);
+
+        // Sacar info. para las notif. por mail
+        String horaTurno = tDTO.getHoraTurno().toString();
+        String fechaTurno = tDTO.getFechaTurno().toString();
+        String nombreBarbero = tDTO.getTurnoBarbero().getUsuarioBarbero().getNombre();
+        String nombreUsuario = tDTO.getUsuarioTurno().getNombre();
+
+        // Mensaje de notificación con información adicional para el usuario
+        String mensajeUsuario = String.format("Su turno se creó con éxito para el %s a las %s con el barbero %s.",
+                fechaTurno, horaTurno, nombreBarbero);
+
+        // Mensaje de notificación con información adicional para el barbero
+        String mensajeBarbero = String.format("Se ha creado un nuevo turno para el %s a las %s con el cliente %s.",
+                fechaTurno, horaTurno, nombreUsuario);
+
+        // Envía notificaciones
+        nService.enviarNotificacion(tDTO.getUsuarioTurno(), mensajeUsuario);
+        nService.enviarNotificacion(tDTO.getTurnoBarbero(), mensajeBarbero);
     }
 
     // MODIFICAR TURNO (FECHA / HORA)

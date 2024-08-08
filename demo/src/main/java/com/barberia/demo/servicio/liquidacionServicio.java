@@ -7,9 +7,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.barberia.demo.dtos.BarberiaDTO;
 import com.barberia.demo.dtos.LiquidacionDTO;
-import com.barberia.demo.entidades.barberiaEntidad;
 import com.barberia.demo.entidades.liquidacionEntidad;
 import com.barberia.demo.repositorios.liquidacionRepositorio;
 import com.barberia.demo.repositorios.turnoRepositorio;
